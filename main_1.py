@@ -125,6 +125,9 @@ count = 50
 score = 0
 high_score = 0
 score_list = []
+val_speed_ball=0
+MIN_RADIUS= 90
+MAX_RADIUS = 80
 
 #biến set giao diện của game
 home_page = True
@@ -147,6 +150,8 @@ while running:
 	#backround màu đen
 	win.fill(BLACK)
 	#BẮT SỰ KIỆN KHI CLICK NÀY NỌ
+
+
 	for event in pygame.event.get():
 		if event.type == pygame.QUIT:
 
@@ -250,14 +255,15 @@ while running:
 			home_page=True
 			score_page = False
 			game_page = False
+			val_speed_ball=0
+			MAX_RADIUS=80
 		if replay_btn.draw(win):
 			clicks = 0
 			score = 0
 			pos = random.randint(0, 11)
-
+			val_speed_ball=0
 			p.reset()
-			# final_score_msg = Message(144, HEIGHT//2-50, 100, "0", score_font, WHITE, win)
-
+			MAX_RADIUS = 80
 			score_page = False
 			game_page = True
 
@@ -280,13 +286,23 @@ while running:
 
 		particle_group.update()
 
-		circle_group.update(shrink)
+		if score>1 and score<10:
+			MAX_RADIUS=85
+		elif score>10 and score<20:
+			MAX_RADIUS=90
+		elif score>20 and score<=30:
+			MAX_RADIUS = 95
+		elif score>30:
+			MAX_RADIUS=100
+
+
+		circle_group.update(shrink,MAX_RADIUS,MIN_RADIUS)
 
 
 		circle_group.draw(win)
 		#giúp playẻ quay vòng trục
-		# print(rotate)
-		p.update(rotate,val_ball)
+
+		p.update(rotate,val_ball,val_speed_ball)
 		p.draw(win,val_ball)
 
 		if p.alive:
@@ -327,7 +343,7 @@ while running:
 							for i in range(10):
 								particle = Particle(x, y, color, win)
 								particle_group.add(particle)
-
+							val_speed_ball+=0.5
 							score += 1
 							dash_fx.play()
 						p.dr *= -1

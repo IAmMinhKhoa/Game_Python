@@ -166,8 +166,7 @@ while running:
 	clock.tick(FPS)
 	pygame.display.update()
 	win.fill(color)
-	# if score >2 :
-	# 	FPS=100
+
 
 	for event in pygame.event.get():
 		if event.type == pygame.QUIT:
@@ -274,7 +273,7 @@ while running:
 
 
 		if home_btn.draw(win):
-
+			FPS=60
 			home_page = True
 			score_page = False
 			game_page = False
@@ -338,7 +337,7 @@ while running:
 				if dot.rect.colliderect(p):
 					dot.kill()
 					score_fx.play()
-
+					FPS+=10
 					score += 1
 					if score >highscore :
 						highscore = score

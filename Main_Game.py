@@ -7,13 +7,13 @@ import sys
 from objects_1 import *
 pygame.init()
 SCREEN = WIDTH, HEIGHT = 288, 512
-win = pygame.display.set_mode(SCREEN, pygame.NOFRAME | pygame.SCALED | pygame.FULLSCREEN)
+# win = pygame.display.set_mode(SCREEN, pygame.NOFRAME | pygame.SCALED | pygame.FULLSCREEN)
 info = pygame.display.Info()
 width = info.current_w
 height = info.current_h
 
 # if width >= height:
-# win = pygame.display.set_mode(SCREEN, pygame.NOFRAME)
+win = pygame.display.set_mode(SCREEN, pygame.NOFRAME)
 # else:
 #     win = pygame.display.set_mode(SCREEN, pygame.NOFRAME | pygame.SCALED | pygame.FULLSCREEN)
 
@@ -41,7 +41,6 @@ arc_dash_img = pygame.image.load('Arc Dash.png')
 #set vị trí tên game TAP TAP
 tap = Message(80, 150, 70, "Tap", title_font, WHITE, win)
 tap2 = Message(210, 150, 70, "Tap", title_font, WHITE, win)
-
 
 # thêm 30 ảnh animation backround vào mảng, sau đó cho mảng chạy lien tục để animation
 ide_br=[]
@@ -101,13 +100,14 @@ while running:
     tap.update()
     tap2.update()
 
+
     #BẮT SỰ KIỆN NẾU NÚT GAME 1 HOẶC GAME 2 ĐƯỢC CLICK THÌ CHUYỂN SANG GAME ĐÓ
-    if Button_game_btn_1.draw(win):
+    if Button_game_btn_1.draw(win) :
         exec(open("main_1.py", encoding="utf8").read())
+        running = False
     elif Button_game_btn_2.draw(win):
         exec(open("main_2.py", encoding="utf8").read())
-
-
+        running = False
 
 
 

@@ -5,8 +5,10 @@ import pygame
 SCREEN = WIDTH, HEIGHT = 288, 512
 CENTER = WIDTH //2, HEIGHT // 2
 
-MAX_RADIUS = 90
-MIN_RADIUS = 90
+# max 100
+# min 80
+# MAX_RADIUS = 90
+# MIN_RADIUS = 90
 # img=pygame.image.load('Assets/player.png')
 img_1=pygame.image.load("Qircle Rush\\Assets\\ball_1.png")
 img_2=pygame.image.load("Qircle Rush\\Assets\\ball_2.png")
@@ -31,7 +33,7 @@ class Circle(pygame.sprite.Sprite):
 		self.image = pygame.image.load('Qircle Rush/Assets/circle.png')
 		self.rect = self.image.get_rect()
 
-	def update(self, shrink):
+	def update(self, shrink,MIN_RADIUS,MAX_RADIUS):
 
 		self.shrink = shrink
 
@@ -94,13 +96,13 @@ class Player():
 		self.dr = self.speed
 		self.alive = True
 
-	def update(self, rotate,val_ball):
+	def update(self, rotate,val_ball,val_speed_ball):
 
 		if  rotate==False:
 			self.rotate = False
 		if self.rotate==True:
 			#khi đang xoay thì chỉnh tốc độ của player
-			self.theta = (self.theta + 2 ) % 360
+			self.theta = (self.theta + 2 ) % 360+val_speed_ball
 
 		else:
 			self.radius += self.dr
